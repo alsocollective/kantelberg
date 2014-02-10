@@ -2,9 +2,10 @@ from django.db import models
 from easy_thumbnails.fields import ThumbnailerImageField
 from django.template.defaultfilters import slugify
 import os
+import glob
 import os.path
 from easy_thumbnails.files import get_thumbnailer
-
+from kantelberg.settings import SITE_ROOT
 
 
 
@@ -23,14 +24,25 @@ class Image(models.Model):
 
 	def showImage(self):
 		if self.image:
-			return '<img style="width:200px;height:auto;" src="/%s"/>' % get_thumbnailer(self.image)['preview'].url
+			return '<img style="width:300px;height:auto;" src="/%s"/>' % get_thumbnailer(self.image)['preview'].url
 		return "not an image"
 
 	showImage.short_description = "current image"
 	showImage.allow_tags = True
 
-	def delete(self):
+	def remove(self):
+		print "------------------------------"
 		print "delete the files"
+		removeEl = "%s/%s*" % (os.sep.join(SITE_ROOT.split(os.sep)[:-1]),self.image)
+		print "++++++++++++++"
+		# print removeEl
+		# os.remove(removeEl)
+		for fl in glob.glob(removeEl):
+			print "++++++++++++++"
+			print fl
+			os.remove(fl)
+		#os.remove(removeEl)
+		print "------------------------------"
 		# find all the images nad eldelagw f0
 
 	def __unicode__(self):
