@@ -1,0 +1,75 @@
+@import "base";
+
+#projects{
+	.image-container{
+		width: 25%;
+		display: inline-block;
+	}
+}
+
+#products{
+	.image-container{
+		width: 20%;
+		display: inline-block;
+	}
+}
+
+#whats-new{
+	.image-container{
+		width: 20%;
+		height: 33.33%;
+		display: inline-block;
+	}
+}
+
+#product-page{
+
+	.sub-head{
+		position: relative;
+		z-index: 99;
+		color: #fff;
+		a{
+			border-color: #fff;
+		}
+		a:hover{
+			background-color: #000;
+		}
+	}
+	p{
+		max-width: 50%;
+	}
+
+	.left{
+		vertical-align: top;
+		width: 40%;
+		height: 100%;
+		margin-left: 10%;
+		display: inline-block;
+		position: relative;
+		float: right;
+		.rsNav{
+			position: absolute;
+			bottom: 0;
+		}
+	}
+	.right{
+		vertical-align: top;
+		width: 40%;
+		height: 100%;
+		margin-right: 10%;
+		display: inline-block;
+		float: right;
+		.rs-special{
+			height: 100% !important;
+		}
+	}
+
+	.rsNavItem {
+		-webkit-tap-highlight-color: rgba(0,0,0,0.25);
+		padding-right: 1em;
+	}
+	.rsNavItem:hover{
+		opacity:0.4;
+	}
+}
+

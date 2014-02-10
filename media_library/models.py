@@ -10,7 +10,7 @@ from kantelberg.settings import SITE_ROOT
 
 
 class Image(models.Model):
-	title = models.CharField(max_length=600)
+	title = models.CharField(max_length=600, blank=True)
 
 	description = models.TextField(max_length=4000, blank=True)
 	date = models.DateField(auto_now=True)
@@ -19,7 +19,8 @@ class Image(models.Model):
 	carousel = models.BooleanField(default=False)
 
 	def save(self,*args, **kwargs):
-		self.slug = slugify(self.title)
+		self.title = str(image)
+		#self.slug = slugify(str(image))
 		super(Image, self).save(*args, **kwargs)
 
 	def showImage(self):

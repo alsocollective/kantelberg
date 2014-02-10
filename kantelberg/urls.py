@@ -21,6 +21,9 @@ urlpatterns = patterns('',
 
     url(r'^product/(?P<product>.*)/$', 'product.views.product', name='home'),
 
+
+    url(r'^contact/$', 'product.views.home', name='home'),
+
     # url(r'^kantelberg/', include('kantelberg.foo.urls')),
 
     # Uncomment the admin/doc line below to enable admin documentation:

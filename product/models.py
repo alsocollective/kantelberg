@@ -1,5 +1,6 @@
 from django.db import models
 from django.template.defaultfilters import slugify
+from easy_thumbnails.files import get_thumbnailer
 
 from media_library.models import Image
 
@@ -80,21 +81,44 @@ class About(models.Model):
 	services_title = models.CharField(max_length=300)
 	services_one_title = models.CharField(max_length=600)
 	services_one_image = models.ManyToManyField(Image,related_name="services_one_image+")
+	def showImageone(self):
+		return '<img style="width:300px;height:auto;" src="/%s"/>' % get_thumbnailer(self.services_one_image.all()[0].image)['preview'].url
+	showImageone.short_description = "Servies one image"
+	showImageone.allow_tags = True
+
 	services_one_description = models.TextField(max_length=2000)
 	services_two_title = models.CharField(max_length=600)
 	services_two_image = models.ManyToManyField(Image,related_name="services_two_image+")
+	def showImagetwo(self):
+		return '<img style="width:300px;height:auto;" src="/%s"/>' % get_thumbnailer(self.services_two_image.all()[0].image)['preview'].url
+	showImagetwo.short_description = "Servies two image"
+	showImagetwo.allow_tags = True
 	services_two_description = models.TextField(max_length=2000)
 
 	team_title = models.CharField(max_length=300)
 	team_one_name = models.CharField(max_length=300)
 	team_one_image = models.ManyToManyField(Image,related_name="team_one_image+")
 	team_one_description = models.TextField(max_length=2000)
+	def showTeamone(self):
+		return '<img style="width:300px;height:auto;" src="/%s"/>' % get_thumbnailer(self.team_one_image.all()[0].image)['preview'].url
+	showTeamone.short_description = "Servies two image"
+	showTeamone.allow_tags = True
+
 	team_two_name = models.CharField(max_length=300)
 	team_two_image = models.ManyToManyField(Image,related_name="team_two_image+")
 	team_two_description = models.TextField(max_length=2000)
+	def showTeamtwo(self):
+		return '<img style="width:300px;height:auto;" src="/%s"/>' % get_thumbnailer(self.team_two_image.all()[0].image)['preview'].url
+	showTeamtwo.short_description = "Servies two image"
+	showTeamtwo.allow_tags = True
+
 	team_three_name = models.CharField(max_length=300)
 	team_three_image = models.ManyToManyField(Image,related_name="team_three_image+")
 	team_three_description = models.TextField(max_length=2000)
+	def showTeamthree(self):
+		return '<img style="width:300px;height:auto;" src="/%s"/>' % get_thumbnailer(self.team_three_image.all()[0].image)['preview'].url
+	showTeamthree.short_description = "Servies two image"
+	showTeamthree.allow_tags = True
 
 	media_title = models.CharField(max_length=300)
 	media_press = models.ManyToManyField(Press,related_name="about-media+")
@@ -111,6 +135,44 @@ class About(models.Model):
 
 	log_lag = models.CharField(max_length=400)
 	map_info_bubble = models.TextField(max_length=2000)
+
+	show_main_carousel_phone = models.BooleanField(default=True)
+	show_main_carousel_tablet = models.BooleanField(default=True)
+	show_main_carousel_desktop = models.BooleanField(default=True)
+
+	show_about_company_info_phone = models.BooleanField(default=True)
+	show_about_company_info_tablet = models.BooleanField(default=True)
+	show_about_company_info_desktop = models.BooleanField(default=True)
+
+	show_about_services_phone = models.BooleanField(default=True)
+	show_about_services_tablet = models.BooleanField(default=True)
+	show_about_services_desktop = models.BooleanField(default=True)
+
+	show_about_team_phone = models.BooleanField(default=True)
+	show_about_team_tablet = models.BooleanField(default=True)
+	show_about_team_desktop = models.BooleanField(default=True)
+
+	show_about_media_phone = models.BooleanField(default=True)
+	show_about_media_tablet = models.BooleanField(default=True)
+	show_about_media_desktop = models.BooleanField(default=True)
+
+	show_projects_phone = models.BooleanField(default=True)
+	show_projects_tablet = models.BooleanField(default=True)
+	show_projects_desktop = models.BooleanField(default=True)
+
+	show_products_phone = models.BooleanField(default=True)
+	show_products_tablet = models.BooleanField(default=True)
+	show_products_desktop = models.BooleanField(default=True)
+
+	show_whatsnew_phone = models.BooleanField(default=True)
+	show_whatsnew_tablet = models.BooleanField(default=True)
+	show_whatsnew_desktop = models.BooleanField(default=True)
+
+	show_map_phone = models.BooleanField(default=True)
+	show_map_tablet = models.BooleanField(default=True)
+	show_map_desktop = models.BooleanField(default=True)
+
+
 
 	def save(self,*args, **kwargs):
 		self.slug = slugify(self.title)
