@@ -1,0 +1,221 @@
+{% load staticfiles %}
+<html lang="en-ca">
+<head>
+
+<!-- common Header stuff -->
+	<title>Kantelberg</title>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0,maximum-scale=10.0,user-scalable=no">
+
+	<!-- Bing Validation -->
+	<meta name="msvalidate.01" content="CF43E0E693FD6DE4A4C4E9BCC83E0CA9" />
+	<!-- Google Webtools Validation -->
+	<meta name="google-site-verification" content="9TuQEKpWFrGTOvqlbTX-Jm-PFMZlf2CmIJS8TKFrc1Q" />
+
+<!-- 	<meta name="description" content="Where indian lands begin is where deforestation ends. The Kayapo are the Answer.">
+
+	<meta name="keywords" content="kayapo, sainforest, icfc, illegal logging, save the rainforest, brazil"> -->
+
+
+<!-- FAVICON -->
+	<link rel="icon" type="image/png" href="/static/img/map-icon.png">
+	<link rel="icon" type="image/ico" href="/static/img/favicon.ico">
+
+
+<!-- FONT -->
+ 	<link rel="stylesheet" type="text/css" href="/static//cloud.typography.com/717268/671322/css/fonts.css" />
+
+<!-- unique Header stuff -->
+	<script type="text/javascript" src="{% static "js/lib/modernizr.js" %}"></script>
+	<script type="text/javascript" src="{% static "js/lib/jquery.js" %}"></script>
+	<script type="text/javascript" src="{% static "js/lib/jquery.royalslider.min.js" %}"></script>
+	<script type="text/javascript" src="{% static "js/lib/jquery-scrolltofixed-min.js" %}"></script>
+	<script type="text/javascript" src="{% static "js/lib/waypoints.min.js" %}"></script>
+	<script type="text/javascript" src="{% static "djs/lib/pullSlider-Jquery.js" %}"></script>
+<!-- Style Yo -->
+	<script type="text/javascript" src="/../static/js/main.js"></script>
+
+<!-- Style Yo -->
+	<link rel="stylesheet" type="text/css" href="/static/css/stylesheets/reset.css">
+
+	<link href="/static/css/stylesheets/desktop.css" media="screen, projection" rel="stylesheet" type="text/css" />
+	<!-- 	<link href="/static/css/stylesheets/phone.css" media="screen, projection" rel="stylesheet" type="text/css" /> -->
+<!-- 	<link rel="stylesheet" type="text/css" href="/static/css/stylesheets/tablet.css"> -->
+
+	<link href="/static/css/stylesheets/royalslider.css" media="screen, projection" rel="stylesheet" type="text/css" />
+	<link href="/static/css/stylesheets/rs-default.css" media="screen, projection" rel="stylesheet" type="text/css" />
+
+</head>
+<body class="">
+<section>
+	<div class="rs-main-page royalSlider rsDefault">
+		<div class="rsContent" id="slide-1">
+			<div>
+				<img width="210" height="46" src="/../static/assets/kantelberg-logo-b.png">
+			</div>
+		</div>
+		<img class="rsImg" src="/../static/img/carol/1.jpg" alt="image desc" class="rsContent"/>
+<!-- 		<img class="rsImg" src="/../static/img/carol/2.jpg" alt="image desc" class="rsContent"/>
+		<img class="rsImg" src="/../static/img/carol/3.jpg" alt="image desc" class="rsContent"/>
+ -->		<img class="rsImg" src="/../static/img/carol/4.jpg" alt="image desc" class="rsContent"/>
+<!-- 		<img class="rsImg" src="/../static/img/carol/5.jpg" alt="image desc" class="rsContent"/>
+ -->		<img class="rsImg" src="/../static/img/carol/6.jpg" alt="image desc" class="rsContent"/>
+<!-- 		<img class="rsImg" src="/../static/img/carol/7.jpg" alt="image desc" class="rsContent"/>
+		<img class="rsImg" src="/../static/img/carol/8.jpg" alt="image desc" class="rsContent"/>
+ -->		<img class="rsImg" src="/../static/img/carol/9.jpg" alt="image desc" class="rsContent"/>
+		<!-- <img class="rsImg" src="/../static/img/carol/10.jpg" alt="image desc" class="rsContent"/> -->
+	</div>
+	<script>
+	jQuery(document).ready(function($) {
+		$(".rs-main-page").royalSlider({
+		imageScaleMode: 'fill',
+		keyboardNavEnabled: true,
+		loop:true
+		});
+	});
+	</script>
+</section>
+
+
+<div> <!-- this is here to not have it shuffle... -->
+	<nav>
+		<a href="/static#" id="logo"><img src="/../static/assets/logo-small-b.png" alt="logo"></a>
+		<ul class="right-width">
+			<li><a href="#about" id="nav-about">About</a></li><li>
+			<a href="#projects" id="nav-projects">Projects</a></li><li>
+			<a href="#products" id="nav-products">Products</a></li><li>
+			<a href="#whats-new" id="nav-whats-new">What's new</a></li><li>
+			<a href="#contact" id="nav-contact">Contact</a></li>
+		</ul>
+		<a id="instagram" href="/static/instegrame" ><img src="/../static/assets/insta.png" alt="instagram"></a>
+		<div class="last-button"></div>
+	</nav>
+</div>
+
+
+<section id="about">
+	<div class="sub-section" id="company-info">
+		<h2 class="section-title">{{about.company_info_title}}</h2>
+		<div class="section-content right-width">
+			<p class="large-italic">
+				{{about.company_info}}
+			</p>
+		</div>
+	</div>
+
+	<div class="sub-section" id="services">
+		<h2 class="section-title">{{about.services_title}}</h2>
+		<div class="section-content right-width">
+			<div class="half">
+				<div class="image-container" style="background-image: url(/../{{about.services_one_image_link}});">
+					<h4>{{about.services_one_title}}</h4>
+				</div>
+				<p>{{about.services_one_description}}</p>
+			</div><div class="half">
+				<div class="image-container" style="background-image: url(/../{{about.services_two_image_link}});">
+					<h4>{{about.services_two_title}}</h4>
+				</div>
+				<p>{{about.services_two_description}}</p>
+			</div>
+		</div>
+	</div>
+
+	<div class="sub-section" id="team">
+		<h2 class="section-title">{{about.team_title}}</h2>
+		<div class="section-content right-width">
+			<div class="third">
+				<img class="portrait" src="/../{{about.team_one_image_link}}" alt="{{about.team_one_name}}">
+				<h4>{{about.team_one_name}}</h4>
+				<div class="swirll">
+					<img src="/../static/assets/swirl.png">
+				</div>
+				<p>{{about.team_one_description}}</p>
+
+			</div><div class="third">
+				<img class="portrait"  src="/../{{about.team_two_image_link}}" alt="{{about.team_two_name}}">
+				<h4>{{about.team_two_name}}</h4>
+				<div class="swirll">
+					<img src="/../static/assets/swirl.png">
+				</div>
+				<p>{{about.team_two_description}}</p>
+
+			</div><div class="third">
+				<img  class="portrait" src="/../{{about.team_three_image_link}}" alt="{{about.team_three_name}}">
+				<h4>{{about.team_three_name}}</h4>
+				<div class="swirll">
+					<img src="/../static/assets/swirl.png">
+				</div>
+				<p>{{about.team_three_description}}</p>
+			</div>
+		</div>
+	</div>
+
+
+	<div class="sub-section" id="media">
+		<h2 class="section-title">{{about.media_title}}</h2>
+		<table class="right-width">
+
+			{% for c1, c2 in about.media_press_links %}
+				<tr>
+					<td><a href="/../media/{{c1.slug}}">{{c1.title}}<br><small>{{c1.date}}<small></a></td>
+					<td><a href="/../media/{{c2.slug}}">{{c2.title}}<br><small>{{c2.date}}<small></a></td>
+
+				</tr>
+			{% endfor %}
+		</table>
+	</div>
+	<div class="sub-section" ></div>
+</section>
+
+<section id="projects">
+	{% for pro in projects %}<a href="/../projects/{{pro.slug}}" class="image-container" style="background-image: url(/../{{pro.cover_image_link}});">
+		<h4>{{pro.title}}</h4>
+	</a>{% endfor %}
+</section>
+
+<section id="products">
+	{% for product in products %}<a href="/../products/{{product.slug}}" class="image-container" style="background-image: url(/../{{product.cover_image_link}});">
+			<h4>{{product.title}}</h4>
+	</a>{% endfor %}
+</section>
+
+
+<section id="whats-new">
+	{% for pro in whats_new %}<a href="/../product/{{pro.slug}}" class="image-container" style="background-image: url(/../{{pro.cover_image_link}});">
+		</a>{% endfor %}
+</section>
+<div>
+	<footer>
+		<div itemscope="" itemtype="http://schema.org/LocalBusiness" id="smith-address">
+			<div itemprop="name" class="hidden"><strong>Kantelberg.co</strong></div>
+			<div itemprop="address" itemscope="" itemtype="http://schema.org/PostalAddress">
+			<span itemprop="streetAddress">1150 Castlefield Ave</span> <span itemprop="addressLocality"> York</span>, <span itemprop="addressRegion">ON</span>, <span itemprop="addressCountry">Canada</span>, <span itemprop="postalCode">M6B 1E9</span> | 
+
+			<span itemprop="telephone">+1 (416) 964-0192</span>
+
+			</div>
+		</div>
+		<div>
+			<a href="/staticmailto:info@kantelbergco.com">info@kantelbergco.com</a> | <form><label>e-newsletter</label><input type="text" name="email"><button>OK</button></form>
+		</div>
+	</footer>
+</div>
+<section id="contact">
+	<div id="googlemap" style="height:500px;"></div>
+</section>
+
+
+
+<div id="loading-screen" class="hidden"></div>
+<div id="product-page"></div>
+<div id="loaded-content"></div>
+
+
+</body>
+</html>
+
+
+
+
+

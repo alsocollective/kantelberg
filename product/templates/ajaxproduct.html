@@ -1,0 +1,25 @@
+
+<style type="text/css">
+.rsDefault, .rsDefault .rsOverflow, .rsDefault .rsSlide, .rsDefault .rsVideoFrameHolder, .rsDefault .rsThumbs{
+	background-color: transparent !important;
+}
+</style>
+
+<div class="sub-head">
+	<a src="" class="loaded-closer">x</a>
+</div>
+<div class="right">
+	<div class="royalSlider rsDefault rs-special">
+		{% for image in data.image_links %}
+			<a class="rsImg" href="/../{{image.0}}">image 1<img src="/../{{image.2}}" class="rsTmb" /></a>
+		{% endfor %}
+</div></div><div class="left">
+	<h4>Tittle:</h4>
+		<p>{{data.title}}</p>
+	<h4>Description:</h4>
+		<p>{{data.description}}</p>
+	<h4>Specifications:</h4>
+		<p>{{data.specification}}</p>
+	<h4>Price:</h4>
+		<p>{{data.price}}</p>
+</div>

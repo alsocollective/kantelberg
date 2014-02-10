@@ -1,0 +1,9 @@
+<div class="sub-head">
+	<h3>{{data.title}}</h3>
+	<a href="" class="loaded-closer">x</a>
+</div>
+<div class="royalSlider rsDefault rsprojects">
+	{% for pro in data.image_links %}
+	<img class="rsImg" src="/../{{pro.0}}" alt="{{pro.1}}" class="rsContent"/>
+	{% endfor %}
+</div>

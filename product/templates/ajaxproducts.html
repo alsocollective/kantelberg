@@ -1,0 +1,8 @@
+<div class="sub-head">
+	<h3>{{category.title}}</h3>
+	<a href="" class="loaded-closer">x</a>
+</div>
+<div id="products-content">
+	{% for pro in products %}<a href="/../product/{{pro.slug}}" class="image-container" style="background-image: url(/../{{pro.cover_image_link}});">
+	</a>{% endfor %}
+</div>
