@@ -11,14 +11,24 @@ class Product(models.Model):
 	specification = models.TextField(max_length=2000,blank=True)
 	price = models.TextField(max_length=2000,blank=True)
 
-	cover_image = models.ManyToManyField(Image,related_name="product-cover-image+")
+	# cover_image = models.ManyToManyField(Image,related_name="product-cover-image+")
+	cover_image = models.ForeignKey(Image, null=True, blank=True, default = None,related_name="r-product-cover-image+")
 	images = models.ManyToManyField(Image,related_name="product-shots+")
 
 	whats_new = models.BooleanField(default=True)
 	whats_new_date = models.DateField(auto_now=True)
-
+	def cover_image_show(self):
+		# return '<p>yep</p>'
+		out = "No Image"
+		if self.cover_image:
+			out = '<img style="width:300px;height:auto;" src="/%s"/>' % get_thumbnailer(self.cover_image.image)['preview'].url
+		return out
+	cover_image_show.short_description = "Servies one image"
+	cover_image_show.allow_tags = True
 
 	slug = models.SlugField(blank=True)
+
+	order = models.IntegerField(default=99)
 
 	def save(self,*args, **kwargs):
 		self.slug = slugify(self.title)
@@ -31,10 +41,21 @@ class ProductCat(models.Model):
 	title = models.CharField(max_length=600)
 	description = models.TextField(max_length=2000,blank=True)
 
-	cover_image = models.ManyToManyField(Image,related_name="cover-image+")
+	# cover_image = models.ManyToManyField(Image,related_name="cover-image+")
+	cover_image = models.ForeignKey(Image, null=True, blank=True, default = None,related_name="r-cover-image+")
 	products = models.ManyToManyField(Product,related_name="products+")
 
 	slug = models.SlugField(blank=True)
+	order = models.IntegerField(default=99)
+
+	def cover_image_show(self):
+		# return '<p>yep</p>'
+		out = "No Image"
+		if self.cover_image:
+			out = '<img style="width:300px;height:auto;" src="/%s"/>' % get_thumbnailer(self.cover_image.image)['preview'].url
+		return out
+	cover_image_show.short_description = "Servies one image"
+	cover_image_show.allow_tags = True
 
 	def save(self,*args, **kwargs):
 		self.slug = slugify(self.title)
@@ -48,6 +69,7 @@ class Press(models.Model):
 	date = models.CharField(max_length=300)
 	images = models.ManyToManyField(Image,related_name="press-images+")
 	slug = models.SlugField(blank=True)
+	order = models.IntegerField(default=99)
 
 	def save(self,*args, **kwargs):
 		self.slug = slugify(self.title)
@@ -59,13 +81,36 @@ class Press(models.Model):
 class Project(models.Model):
 	title = models.CharField(max_length=600)
 	description = models.TextField(max_length=2000)
-	cover_image = models.ManyToManyField(Image,related_name="project-cover-image+")
+	# cover_image = models.ManyToManyField(Image,related_name="project-cover-image+")
+	cover_image = models.ForeignKey(Image, null=True, blank=True, default = None,related_name="r-project-cover-image+")
 	images = models.ManyToManyField(Image,related_name="project-images+")
 	slug = models.SlugField(blank=True)
+	order = models.IntegerField(default=99)
+
+	def cover_image_show(self):
+		# return '<p>yep</p>'
+		out = "No Image"
+		if self.cover_image:
+			out = '<img style="width:300px;height:auto;" src="/%s"/>' % get_thumbnailer(self.cover_image.image)['preview'].url
+		return out
+	cover_image_show.short_description = "Servies one image"
+	cover_image_show.allow_tags = True
 
 	def save(self,*args, **kwargs):
 		self.slug = slugify(self.title)
 		super(Project, self).save(*args, **kwargs)
+
+	def __unicode__(self):
+		return self.title
+
+class WhatsNew(models.Model):
+	title = models.CharField(max_length=600)
+	whats_new_products = models.ManyToManyField(Product,related_name="w_n_products+")
+	slug = models.SlugField(blank=True)
+
+	def save(self,*args, **kwargs):
+		self.slug = slugify(self.title)
+		super(WhatsNew, self).save(*args, **kwargs)
 
 	def __unicode__(self):
 		return self.title
@@ -80,7 +125,8 @@ class About(models.Model):
 
 	services_title = models.CharField(max_length=300)
 	services_one_title = models.CharField(max_length=600)
-	services_one_image = models.ManyToManyField(Image,related_name="services_one_image+")
+	services_one_image = models.ForeignKey(Image, null=True, blank=True, default = None,related_name="r-services_one_image+")
+	# services_one_image = models.ManyToManyField(Image,related_name="services_one_image+")
 	def showImageone(self):
 		return '<img style="width:300px;height:auto;" src="/%s"/>' % get_thumbnailer(self.services_one_image.all()[0].image)['preview'].url
 	showImageone.short_description = "Servies one image"
@@ -88,7 +134,8 @@ class About(models.Model):
 
 	services_one_description = models.TextField(max_length=2000)
 	services_two_title = models.CharField(max_length=600)
-	services_two_image = models.ManyToManyField(Image,related_name="services_two_image+")
+	services_two_image = models.ForeignKey(Image, null=True, blank=True, default = None,related_name="r-services_two_image+")
+	# services_two_image = models.ManyToManyField(Image,related_name="services_two_image+")
 	def showImagetwo(self):
 		return '<img style="width:300px;height:auto;" src="/%s"/>' % get_thumbnailer(self.services_two_image.all()[0].image)['preview'].url
 	showImagetwo.short_description = "Servies two image"
@@ -97,7 +144,8 @@ class About(models.Model):
 
 	team_title = models.CharField(max_length=300)
 	team_one_name = models.CharField(max_length=300)
-	team_one_image = models.ManyToManyField(Image,related_name="team_one_image+")
+	team_one_image = models.ForeignKey(Image, null=True, blank=True, default = None,related_name="r-team_one_image+")
+	# team_one_image = models.ManyToManyField(Image,related_name="team_one_image+")
 	team_one_description = models.TextField(max_length=2000)
 	def showTeamone(self):
 		return '<img style="width:300px;height:auto;" src="/%s"/>' % get_thumbnailer(self.team_one_image.all()[0].image)['preview'].url
@@ -105,7 +153,8 @@ class About(models.Model):
 	showTeamone.allow_tags = True
 
 	team_two_name = models.CharField(max_length=300)
-	team_two_image = models.ManyToManyField(Image,related_name="team_two_image+")
+	team_two_image = models.ForeignKey(Image, null=True, blank=True, default = None,related_name="r-team_two_image+")
+	# team_two_image = models.ManyToManyField(Image,related_name="team_two_image+")
 	team_two_description = models.TextField(max_length=2000)
 	def showTeamtwo(self):
 		return '<img style="width:300px;height:auto;" src="/%s"/>' % get_thumbnailer(self.team_two_image.all()[0].image)['preview'].url
@@ -113,7 +162,8 @@ class About(models.Model):
 	showTeamtwo.allow_tags = True
 
 	team_three_name = models.CharField(max_length=300)
-	team_three_image = models.ManyToManyField(Image,related_name="team_three_image+")
+	team_three_image = models.ForeignKey(Image, null=True, blank=True, default = None,related_name="r-team_three_image+")
+	# team_three_image = models.ManyToManyField(Image,related_name="team_three_image+")
 	team_three_description = models.TextField(max_length=2000)
 	def showTeamthree(self):
 		return '<img style="width:300px;height:auto;" src="/%s"/>' % get_thumbnailer(self.team_three_image.all()[0].image)['preview'].url

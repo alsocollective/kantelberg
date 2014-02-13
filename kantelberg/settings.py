@@ -30,7 +30,8 @@ DATABASES = {
 # Hosts/domain names that are valid for this site; required if DEBUG is False
 # See https://docs.djangoproject.com/en/1.5/ref/settings/#allowed-hosts
 ALLOWED_HOSTS = [
-    "localhost"
+    "192.168.100.109"
+    ,"localhost"
 ]
 
 # Local time zone for this installation. Choices can be found here:
@@ -111,6 +112,14 @@ MIDDLEWARE_CLASSES = (
     # 'django.middleware.clickjacking.XFrameOptionsMiddleware',
     'mobileesp.middleware.MobileDetectionMiddleware',
 
+
+
+
+    # FOR CASHING!!!
+    # 'django.middleware.cache.UpdateCacheMiddleware',
+    # 'django.middleware.common.CommonMiddleware',
+    # 'django.middleware.cache.FetchFromCacheMiddleware',
+
 )
 
 ROOT_URLCONF = 'kantelberg.urls'
@@ -182,5 +191,18 @@ THUMBNAIL_ALIASES = {
         'thumb': {'size': (59, 59), 'crop': False},
         'preview': {'size': (300, 300), 'crop': False},
         'mobile': {'size':(600,600), 'crop': False},
+        'phone':{'size':(600,600), 'crop': False},
+        'tablet':{'size':(900,900), 'crop': False},
+        'desktop':{'size':(1200,1200), 'crop': False},
     },
 }
+
+
+# https://docs.djangoproject.com/en/dev/topics/cache/
+# Make sure the directory pointed-to by this setting exists and is readable and writable by the system user under which your Web server runs. Continuing the above example, if your server runs as the user apache, make sure the directory /var/tmp/django_cache exists and is readable and writable by the user apache.
+# CACHES = {
+#     'default': {
+#         'BACKEND': 'django.core.cache.backends.filebased.FileBasedCache',
+#         'LOCATION': SITE_ROOT+'/../data/django_cache',
+#     }
+# }

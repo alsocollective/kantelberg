@@ -1,18 +1,95 @@
 @import "base";
 
+
+/* Section NAV */
+	.container{
+		position: relative;
+		left: 0;
+		-webkit-transition: left 1s ease-in-out;
+		-moz-transition: left 1s ease-in-out;
+		-o-transition: left 1s ease-in-out;
+		transition: left 1s ease-in-out;
+
+		.coloum{
+			display: inline-block;
+		}
+	}
+	.sub-nav-button {
+		position: absolute;
+		top: 50%;
+		display: block;
+		z-index: 1;
+		background-color: #fff;
+		width: 32px;
+		height: 32px;
+		text-align: center;
+		background-color: rgba(0,0,0,0.9);
+		margin-top: -16px;
+		margin-left: -16px;
+		background: url('rs-default.png');
+		background-color: #000;
+		background-color: rgba(0,0,0,0.75);
+		border-radius: 50%;
+		border: 2px solid #fff;
+	}
+	.sub-nav-button:hover{
+		background-color: rgba(0,0,0,0.9);
+	}
+	.right-button {
+		right: 12px;
+		background-position: -64px -64px;
+
+	}
+	.left-button {
+		left: 28px;
+		background-position: -64px -32px;
+	}
+
+.cat-titles{
+	width: 100%;
+	h2{
+		width: 100%;
+		font-size: 3.4em;
+		display: block;
+		text-align: center;
+		padding: 3em 0em 1.65em 0em;
+		max-width: none;
+	}
+	.clear-both{
+		display: block;
+		clear: both;
+	}
+}
+.cat-titles.projects{
+	background-color: $light-green;
+}
+.cat-titles.products{
+	background-color: $projects-blue;
+}
+.cat-titles.whats-new{
+	background-color: $projects-blue;
+}
+
+
 #projects{
+	position: relative;
+	overflow: hidden;
+
 	.image-container{
-		width: 25%;
 		display: inline-block;
 	}
 }
 
 #products{
+	overflow: hidden;
+	position: relative;
+
 	.image-container{
-		width: 20%;
+		width: 100%;
 		display: inline-block;
 	}
 }
+
 
 #whats-new{
 	.image-container{
@@ -22,7 +99,21 @@
 	}
 }
 
+#loaded-content{
+	z-index: 3;
+}
+
+.products-loaded{
+
+	#products-content .image-container{
+		display: block;
+		width: 100%;
+	}
+}
+
+
 #product-page{
+	z-index: 5;
 
 	.sub-head{
 		position: relative;
@@ -72,4 +163,4 @@
 		opacity:0.4;
 	}
 }
-
+ 

@@ -19,27 +19,28 @@
 
 
 <!-- FAVICON -->
-	<link rel="icon" type="image/png" href="/static/img/map-icon.png">
-	<link rel="icon" type="image/ico" href="/static/img/favicon.ico">
+	<link rel="icon" type="image/png" href="/static/assets/map-icon.png">
+	<link rel="icon" type="image/ico" href="/static/assets/favicon.ico">
 
 
 <!-- FONT -->
- 	<link rel="stylesheet" type="text/css" href="/static//cloud.typography.com/717268/671322/css/fonts.css" />
+	<link href='http://fonts.googleapis.com/css?family=Libre+Baskerville:400,700,400italic' rel='stylesheet' type='text/css' id="font-loaded">
 
 <!-- unique Header stuff -->
+
 	<script type="text/javascript" src="{% static "js/lib/modernizr.js" %}"></script>
 	<script type="text/javascript" src="{% static "js/lib/jquery.js" %}"></script>
 	<script type="text/javascript" src="{% static "js/lib/jquery.royalslider.min.js" %}"></script>
-	<script type="text/javascript" src="{% static "js/lib/jquery-scrolltofixed-min.js" %}"></script>
 	<script type="text/javascript" src="{% static "js/lib/waypoints.min.js" %}"></script>
-	<script type="text/javascript" src="{% static "djs/lib/pullSlider-Jquery.js" %}"></script>
+	<script type="text/javascript" src="{% static "js/lib/pullSlider-Jquery.js" %}"></script>
+
 <!-- Style Yo -->
 	<script type="text/javascript" src="/../static/js/main.js"></script>
 
 <!-- Style Yo -->
 	<link rel="stylesheet" type="text/css" href="/static/css/stylesheets/reset.css">
 
-	<link href="/static/css/stylesheets/desktop.css" media="screen, projection" rel="stylesheet" type="text/css" />
+	<link href="/static/css/stylesheets/{{size}}.css" media="screen, projection" rel="stylesheet" type="text/css" />
 	<!-- 	<link href="/static/css/stylesheets/phone.css" media="screen, projection" rel="stylesheet" type="text/css" /> -->
 <!-- 	<link rel="stylesheet" type="text/css" href="/static/css/stylesheets/tablet.css"> -->
 
@@ -47,7 +48,8 @@
 	<link href="/static/css/stylesheets/rs-default.css" media="screen, projection" rel="stylesheet" type="text/css" />
 
 </head>
-<body class="">
+<body class="{{size}}">
+
 <section>
 	<div class="rs-main-page royalSlider rsDefault">
 		<div class="rsContent" id="slide-1">
@@ -55,16 +57,10 @@
 				<img width="210" height="46" src="/../static/assets/kantelberg-logo-b.png">
 			</div>
 		</div>
-		<img class="rsImg" src="/../static/img/carol/1.jpg" alt="image desc" class="rsContent"/>
-<!-- 		<img class="rsImg" src="/../static/img/carol/2.jpg" alt="image desc" class="rsContent"/>
-		<img class="rsImg" src="/../static/img/carol/3.jpg" alt="image desc" class="rsContent"/>
- -->		<img class="rsImg" src="/../static/img/carol/4.jpg" alt="image desc" class="rsContent"/>
-<!-- 		<img class="rsImg" src="/../static/img/carol/5.jpg" alt="image desc" class="rsContent"/>
- -->		<img class="rsImg" src="/../static/img/carol/6.jpg" alt="image desc" class="rsContent"/>
-<!-- 		<img class="rsImg" src="/../static/img/carol/7.jpg" alt="image desc" class="rsContent"/>
-		<img class="rsImg" src="/../static/img/carol/8.jpg" alt="image desc" class="rsContent"/>
- -->		<img class="rsImg" src="/../static/img/carol/9.jpg" alt="image desc" class="rsContent"/>
-		<!-- <img class="rsImg" src="/../static/img/carol/10.jpg" alt="image desc" class="rsContent"/> -->
+		{% for image in carousel %}
+			<img class="rsImg" src="/../{{image.0}}" alt="{{image.1}}" class="rsContent"/>
+		{% endfor %}
+
 	</div>
 	<script>
 	jQuery(document).ready(function($) {
@@ -77,6 +73,8 @@
 	</script>
 </section>
 
+<div id="down-arrow">Scroll Onwards<br><br></div>
+
 
 <div> <!-- this is here to not have it shuffle... -->
 	<nav>
@@ -88,7 +86,7 @@
 			<a href="#whats-new" id="nav-whats-new">What's new</a></li><li>
 			<a href="#contact" id="nav-contact">Contact</a></li>
 		</ul>
-		<a id="instagram" href="/static/instegrame" ><img src="/../static/assets/insta.png" alt="instagram"></a>
+		<a id="instagram" href="http://instagram.com/kantelbergco" ><img src="/../static/assets/insta.png" alt="instagram"></a>
 		<div class="last-button"></div>
 	</nav>
 </div>
@@ -167,20 +165,36 @@
 	</div>
 	<div class="sub-section" ></div>
 </section>
-
+<div class="cat-titles projects"><h2 class="right-width">Projects</h2><span class="clear-both"></span></div>
 <section id="projects">
-	{% for pro in projects %}<a href="/../projects/{{pro.slug}}" class="image-container" style="background-image: url(/../{{pro.cover_image_link}});">
-		<h4>{{pro.title}}</h4>
-	</a>{% endfor %}
+	{% if projectW.width != 100 %}
+		<a href="#" class="left-button sub-nav-button"></a>
+		<a href="#" class="right-button sub-nav-button"></a>
+	{% endif %}
+	<div class="container" style="width:{{projectW.width}}%;">
+	{% for pro1,pro2 in projects %}<div class="coloum" style="width:{{projectW.cell}}%;"><a href="/../projects/{{pro1.slug}}" class="image-container" style="background-image: url(/../{{pro1.cover_image_link}});">
+		<h4>{{pro1.title}}</h4>
+	</a>{% if pro2%}<a href="/../projects/{{pro2.slug}}" class="image-container" style="background-image: url(/../{{pro2.cover_image_link}});">
+		<h4>{{pro2.title}}</h4>
+	</a>{% endif %}</div>{% endfor %}
+	</div>
 </section>
-
+<div class="cat-titles products"><h2 class="right-width">Products</h2><span class="clear-both"></span></div>
 <section id="products">
-	{% for product in products %}<a href="/../products/{{product.slug}}" class="image-container" style="background-image: url(/../{{product.cover_image_link}});">
-			<h4>{{product.title}}</h4>
-	</a>{% endfor %}
+	{% if productW.width != 100 %}
+		<a href="#" class="left-button sub-nav-button"></a>
+		<a href="#" class="right-button sub-nav-button"></a>
+	{% endif %}
+	<div class="container" style="width:{{productW.width}}%;">
+	{% for product1,product2 in products %}<div class="coloum" style="width:{{productW.cell}}%;"><a href="/../products/{{product1.slug}}" class="image-container" style="background-image: url(/../{{product1.cover_image_link}});">
+			<h4>{{product1.title}}</h4>
+	</a><a href="/../products/{{product2.slug}}" class="image-container" style="background-image: url(/../{{product2.cover_image_link}});">
+			<h4>{{product2.title}}</h4>
+	</a></div>{% endfor %}
+	</div>
 </section>
 
-
+<div class="cat-titles whats-new"><h2 class="right-width">What's new</h2><span class="clear-both"></span></div>
 <section id="whats-new">
 	{% for pro in whats_new %}<a href="/../product/{{pro.slug}}" class="image-container" style="background-image: url(/../{{pro.cover_image_link}});">
 		</a>{% endfor %}
@@ -190,14 +204,13 @@
 		<div itemscope="" itemtype="http://schema.org/LocalBusiness" id="smith-address">
 			<div itemprop="name" class="hidden"><strong>Kantelberg.co</strong></div>
 			<div itemprop="address" itemscope="" itemtype="http://schema.org/PostalAddress">
-			<span itemprop="streetAddress">1150 Castlefield Ave</span> <span itemprop="addressLocality"> York</span>, <span itemprop="addressRegion">ON</span>, <span itemprop="addressCountry">Canada</span>, <span itemprop="postalCode">M6B 1E9</span> | 
-
-			<span itemprop="telephone">+1 (416) 964-0192</span>
+			<span itemprop="streetAddress">{{about.street}}</span> <span itemprop="addressLocality"> {{about.city}}</span>, <span itemprop="addressRegion">{{about.province}}</span>, <span itemprop="addressCountry">{{about.country}}</span>, <span itemprop="postalCode">{{about.postal_code}}</span> | 
+			<span itemprop="telephone">{{about.phone_number}}</span>
 
 			</div>
 		</div>
 		<div>
-			<a href="/staticmailto:info@kantelbergco.com">info@kantelbergco.com</a> | <form><label>e-newsletter</label><input type="text" name="email"><button>OK</button></form>
+			<a href="/staticmailto:{{about.email_address}}">{{about.email_address}}</a> | <form><label>e-newsletter</label><input type="text" name="email"><button>OK</button></form>
 		</div>
 	</footer>
 </div>
@@ -214,8 +227,3 @@
 
 </body>
 </html>
-
-
-
-
-

@@ -1,16 +1,19 @@
 from django.contrib import admin
 from media_library.models import *
+from product.models import *
 
 # Register your models here.
 class imageAdminView(admin.ModelAdmin):
-
+	# model = Image
+	list_filter = ['carousel','order']
+	search_fields = ['title']
 	readonly_fields = ('showImage',)
 	fieldsets = [
 		('',{
-			'fields':[('title','showImage','image','carousel')]}
+			'fields':[('title','showImage','image','carousel','order')]}
 		),]
-	list_display = ('title','showImage','carousel')
-	list_editable = ('carousel',)
+	list_display = ('title','showImage','order','carousel')
+	list_editable = ('carousel','order',)
 
 	actions=['really_delete_selected']
 

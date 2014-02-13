@@ -108,7 +108,8 @@ body { /* Addresses a small issue in webkit: http://bit.ly/NEdoDq */
 
 /* Variables */
 
-$light-green:#B9F3B9;
+// $light-green:#B9F3B9;
+$light-green:#ccc;
 // $light-green:#30C272;
 // $logo-grey:#A54200;
 $logo-grey:#3C3C3C;
@@ -120,6 +121,8 @@ $product-white:#fff;
 /* Global Classes */
 $acropolis: 'Acropolis A', 'Acropolis B';
 $verlag: 'Verlag A', 'Verlag B';
+$baskerville: 'Libre Baskerville', serif;
+
 
 // example of how to use this break point thing...
 // @include breakpoint(huge) { background-color: #f00; }
@@ -131,12 +134,14 @@ body,html{
 	height: 100%;
 	padding: 0;
 	margin: 0;
-	font-family: $verlag;
+	font-family: $baskerville;
 	-webkit-font-smoothing: antialiased;
+	line-height: 1.4em;
 }
 
 section{
 	min-width: 100%;
+	clear: both;
 }
 
 
@@ -203,12 +208,14 @@ section{
 
 	#down-arrow{
 		width: 100%;
-		height: 100px;
 		position: absolute;
-		top: 80%;
-		background-position: center;
+		bottom: 1%;
+		padding-bottom: 1em;
+		text-align: center;
+		color: #fff;
+		background-position: bottom;
 		background-repeat: no-repeat;
-		background-image: url(/img/down-arrow.png);
+		background-image: url(/../static/assets/down-arrow.png);
 	}
 
 /*
@@ -270,22 +277,25 @@ section{
 				@include easyTransition(0.25s);
 			}
 		}
-		.heighlight#nav-about, #nav-about:hover{
-			background-color: $light-green;
-		}
-		.heighlight#nav-projects, #nav-projects:hover{
+		.right-width .heighlight, .right-width a:hover{
 			background-color: $projects-blue;
 		}
-		.heighlight#nav-products, #nav-products:hover{
-			background-color: $projects-blue;
-		}
-		.heighlight#nav-whats-new, #nav-whats-new:hover{
-			background-color: $whats-new-green;
-		}
-		.heighlight#nav-contact, #nav-contact:hover{
-			background-color: $logo-grey;
-			color: #fff;
-		}
+		// .heighlight#nav-about, #nav-about:hover{
+		// 	background-color: $light-green;
+		// }
+		// .heighlight#nav-projects, #nav-projects:hover{
+		// 	background-color: $projects-blue;
+		// }
+		// .heighlight#nav-products, #nav-products:hover{
+		// 	background-color: $projects-blue;
+		// }
+		// .heighlight#nav-whats-new, #nav-whats-new:hover{
+		// 	background-color: $whats-new-green;
+		// }
+		// .heighlight#nav-contact, #nav-contact:hover{
+		// 	background-color: $logo-grey;
+		// 	color: #fff;
+		// }
 
 	}
 
@@ -314,6 +324,10 @@ section{
 		padding: 1%;
 		position: absolute;
 		top: 150%;
+
+		background-position: center;
+		background-repeat: no-repeat;
+		background-image: url(/../static/assets/down-arrow.png);
 		div{
 			padding: 0.25em;
 		}
@@ -361,6 +375,7 @@ section{
 
 	.normal-footer{
 		position: static !important;
+		background-image: none !important;
 	}
 
 
@@ -392,6 +407,7 @@ section{
 
 		.large-italic{
 			font-size: 2.5em;
+			line-height: 1.25em;
 			font-style: italic;
 			max-width: 66%;
 		}
@@ -501,11 +517,6 @@ section{
 	.products-loaded{
 		background-color: $projects-blue;
 		color:#000;
-
-		#products-content a{
-			display: inline-block;
-			width: 25%;
-		}
 	}
 
 
@@ -571,7 +582,7 @@ section{
 		top: 0;
 		background-position: center;
 		background-repeat: no-repeat;
-		background-image: url(/css/preloaders/preloader-white.gif);
+		background-image: url(/../static/css/preloaders/preloader-white.gif);
 	}
 	.hidden{
 		display: none;

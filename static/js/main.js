@@ -1,4 +1,4 @@
-var nav,navH,footer,footerH,loadArea,loadingScreen,rootHash,slideMenu;
+var nav,navH,footer,footerH,loadArea,loadingScreen,rootHash,slideMenu,map;
 
 $(document).ready(function() {
 
@@ -17,7 +17,7 @@ $(document).ready(function() {
 	rootHash = "",
 	phone = $("body").hasClass('phone');
 
-/*
+/*$
  __  _  __   _   _
 |  \| |/  \ | \ / |
 | | ' | /\ |`\ V /'
@@ -153,14 +153,26 @@ $(document).ready(function() {
 
 */
 	var tempLink; //remove this when in production...
-	$("#projects a").click(loadSeqProjects)
-	$("#products a").click(loadSeqProducts);
+	$("#projects .coloum a").click(loadSeqProjects)
+	$("#products .coloum a").click(loadSeqProducts);
 	$("#whats-new a").click(loadSeqProduct)
 	$("#media table a").click(loadSeqMagazine);
 
 
+
+// Sub category navigation
+	$("#products .left-button").click(scrollLeftForSection);
+	$("#products .right-button").click(scrollRightForSection);
+
+	$("#projects .left-button").click(scrollLeftForProject)
+	$("#projects .right-button").click(scrollRightForProject);
+
+
+
+
 loadGoogleScript();
 resizeSections();
+$("#font-loaded").ready(resizeSections);
 $(window).resize(resizeSections);
 setTimeout(resizeSections,1000);
 //Exit view!!!! with esc
@@ -276,8 +288,10 @@ $(document).keyup(function(e) {
 			$(".sub-head").height(navH);
 			$(".products-loaded .loaded-closer").click(closeLoaded)
 			$(".products-loaded .loaded-closer").on("touchstart",closeLoaded);
-			$("#products-content a").click(loadSeqProduct).on("touchstart",loadSeqProduct);
+			$("#products-content .image-container").click(loadSeqProduct).on("touchstart",loadSeqProduct);
 			openLoaded();
+			$("#products-content .left-button").click(scrollLeftForProductsLoaded);
+			$("#products-content .right-button").click(scrollRightForProductsLoaded);
 		}
 
 		function loadSeqProduct(event){
@@ -313,7 +327,6 @@ $(document).keyup(function(e) {
 			}
 			$(".product-loaded .loaded-closer").click(closeLoaded);
 			$(".product-loaded .loaded-closer").on("touchstart",closeLoaded);
-			console.log(function(){ if(!phone){return 'thumbnails'} else {return "none"}});
 			var controllNav = function(){ if(!phone){return 'thumbnails'} else {return "none"}};
 			slider = $(".rs-special").royalSlider({
 				controlNavigation: controllNav(),
@@ -327,7 +340,7 @@ $(document).keyup(function(e) {
 				fadeinLoadedSlide: true,
 				imageAlignCenter: true,
 				imageScaleMode: 'fill',
-				autoScaleSlider: true,
+				autoScaleSlider: false,
 				arrowsNav: true,
 				arrowsNavAutoHide:false,
 				keyboardNavEnabled: true
@@ -337,8 +350,8 @@ $(document).keyup(function(e) {
 				var subNav = $(".rs-special .rsNav")
 				$("#product-page .left")[0].appendChild(subNav[0])
 				subNav.find(".rsThumbsContainer").css({"height":"auto"});
-				$(".rs-special .rsArrowLeft").css({"position":"fixed"});
-				$(".rs-special .rsArrowRight").css({"position":"fixed"});
+				// $(".rs-special .rsArrowLeft").css({"position":"fixed"});
+				// $(".rs-special .rsArrowRight").css({"position":"fixed"});
 			}
 			openLoaded();
 		}
@@ -423,7 +436,115 @@ $(document).keyup(function(e) {
 			}
 		}
 
+		var productsLoadedScroll = 0,
+		productsLoadedScreens = 0;
+		function scrollRightForProductsLoaded(event){
+			event.preventDefault();
+			animateScroll(this.parentNode);
+			var container = $(this.parentNode).find(".container");
+			console.log(productsLoadedScroll,productsLoadedScreens);
+			if(productsLoadedScroll-1 <= productsLoadedScreens){
+				productsLoadedScroll = 0;
+			} else {
+				--productsLoadedScroll;
+			}
+			console.log(productsLoadedScroll,productsLoadedScreens);
+			container.css({"left":(productsLoadedScroll*100)+"%"});
+			return false;
+		}
+		function scrollLeftForProductsLoaded(event){
+			event.preventDefault();
+			animateScroll(this.parentNode);
+			var container = $(this.parentNode).find(".container");
+			console.log(productsLoadedScroll,productsLoadedScreens);
+			if(productsLoadedScroll+1 > 0 ){
+				productsLoadedScroll = productsLoadedScreens+1;
+			} else {
+				++productsLoadedScroll;
+			}
+			console.log(productsLoadedScroll,productsLoadedScreens);
+			container.css({"left":(productsLoadedScroll*100)+"%"});
+			return false;
+		}
 
+		var productScroll = 0,
+		productScreens = 0;
+		function scrollRightForSection(event){
+			event.preventDefault();
+			animateScroll(this.parentNode);
+			var container = $(this.parentNode).find(".container");
+
+			if(productScreens === 0){
+				productScreens = container[0].style.width
+				productScreens = parseInt(productScreens.slice(0,-3))*-1
+			}
+
+			console.log(productScroll-1 , productScreens)
+			if(productScroll-1 <= productScreens){
+				productScroll = 0;
+			} else {
+				--productScroll;
+			}
+			console.log(productScroll);
+			container.css({"left":(productScroll*100)+"%"});
+
+			return false;
+		}
+		function scrollLeftForSection(event){
+			event.preventDefault();
+			animateScroll(this.parentNode);
+			var container = $(this.parentNode).find(".container");
+
+			if(!productScreens === 0){
+				productScreens = container[0].style.width
+				productScreens = parseInt(productScreens.slice(0,-3))*-1
+			}
+
+			if(productScroll+1 > 0){
+				productScroll = productScreens+1;
+			} else {
+				++productScroll;
+			}
+			console.log(productScroll);
+			container.css({"left":(productScroll*100)+"%"});
+
+			return false;
+		}
+
+		var projectScroll = 0,
+		prodjectScreens = 0;
+		function scrollRightForProject(event){
+			event.preventDefault();
+			animateScroll(this.parentNode);
+			var container = $(this.parentNode).find(".container");
+			if(prodjectScreens === 0){
+				prodjectScreens = container[0].style.width
+				prodjectScreens = parseInt(prodjectScreens.slice(0,-3))*-1
+			}
+			if(projectScroll-1 <= prodjectScreens){
+				projectScroll = 0;
+			} else {
+				--projectScroll;
+			}
+			container.css({"left":(projectScroll*100)+"%"});
+			return false;
+		}
+		function scrollLeftForProject(event){
+			event.preventDefault();
+			animateScroll(this.parentNode);
+			var container = $(this.parentNode).find(".container");
+			if(!prodjectScreens === 0){
+				prodjectScreens = container[0].style.width
+				prodjectScreens = parseInt(prodjectScreens.slice(0,-3))*-1
+			}
+			if(projectScroll+1 > 0){
+				projectScroll = prodjectScreens+1;
+			} else {
+				++projectScroll;
+			}
+			container.css({"left":(projectScroll*100)+"%"});
+			return false;
+		}
 
 
 
@@ -440,14 +561,19 @@ function resizeSections(){
 	if(!phone){
 		$("#projects").height(height);
 		$("#products").height(height);
-		$("#whats-new").height(height);
-		$("#contact").height("auto");
+		// $("#whats-new").height(height);
 		$(productPage).height("100%");
 	}else{
-		$("#contact").height($(window).height()-navH-footer.outerHeight());
 		slideMenu.refindHeight();
 		$(productPage).height($(window).height()-navH);
 	}
+		// $("#contact").height("auto");
+
+	$("#contact").height($(window).height()-navH-footerH);
+	// if(map){
+	// 	console.log("yep");
+	// 	google.maps.event.trigger(map, "resize");
+	// }
 	$("#loaded-content").height(height);
 	$("#loaded-content").css({"top":navH})
 	$(productPage).css({"top":navH})
@@ -569,10 +695,17 @@ function resizeSections(){
 
 		var contentString = " Kantelberg & Co 1150 Castlefield Ave York, ON M6B 1E9 Kantelberg & Co 1150 Castlefield AveYork, ON M6B 1E9 kantelbergco.com (416) 964-0192"
 
-		var map = document.getElementById('googlemap');
+		map = document.getElementById('googlemap');
 		$(map).height($(window).height()-navH-footerH);
 
 		map = new google.maps.Map(map, mapOptions);
+
+		// google.maps.event.addDomListener(window, "resize", function() {
+		// 	var center = map.getCenter();
+		// 	google.maps.event.trigger(map, "resize");
+		// 	map.setCenter(center);
+		// 	console.log("resizeing!!");
+		// });
 
 		var infowindow = new google.maps.InfoWindow({
 			content: contentString,
@@ -584,7 +717,7 @@ function resizeSections(){
 		},1000);
 
 		var image = {
-			url:'/img/map-icon.png',
+			url:'/static/assets/map-icon.png',
 			size: new google.maps.Size(50, 50),
 			origin: new google.maps.Point(0,0),
 			anchor: new google.maps.Point(50,50),

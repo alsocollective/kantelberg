@@ -10,17 +10,18 @@ from kantelberg.settings import SITE_ROOT
 
 
 class Image(models.Model):
-	title = models.CharField(max_length=600, blank=True)
+	title = models.CharField(max_length=600)
 
 	description = models.TextField(max_length=4000, blank=True)
 	date = models.DateField(auto_now=True)
 	slug = models.SlugField(blank=True)
 	image = ThumbnailerImageField(upload_to='static/images', blank=True)
 	carousel = models.BooleanField(default=False)
+	order = models.IntegerField(default=99)
 
 	def save(self,*args, **kwargs):
-		self.title = str(image)
-		#self.slug = slugify(str(image))
+		# self.title = str(self.image)
+		self.slug = slugify(self.title)
 		super(Image, self).save(*args, **kwargs)
 
 	def showImage(self):

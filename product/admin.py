@@ -3,7 +3,7 @@ from product.models import *
 
 class aboutPage(admin.ModelAdmin):
 	readonly_fields = ('showImageone','showImagetwo','showTeamone','showTeamtwo','showTeamthree')
-	filter_horizontal = ('services_one_image','services_two_image','team_one_image','team_two_image','team_three_image','media_press',)
+	filter_horizontal = ('media_press',)
 	fieldsets = (
 		('Company Info', {
 			'classes': ('collapse',),
@@ -44,16 +44,63 @@ class aboutPage(admin.ModelAdmin):
 	)
 
 class PressPage(admin.ModelAdmin):
-fieldsets = (
-		('Company Info', {
-			'classes': ('collapse',),
-			'fields': ('company_info_title', 'company_info')
+	list_display = ('title','order')
+	list_editable = ('order',)
+	fieldsets = (
+		('', {
+			'fields': ('title', 'date','images')
+		}),
+		)
+
+class ProductPage(admin.ModelAdmin):
+	readonly_fields = ('cover_image_show',)
+	list_display = ('title','cover_image_show','order')
+	list_editable = ('order',)
+	filter_horizontal = ('images',)
+	fieldsets = (
+		('', {
+			'fields': ('title', 'description','specification','price')
+		}),
+		('', {
+			'fields': (('cover_image','cover_image_show'), 'images')
+		}),
+		)
+
+class ProductCatPage(admin.ModelAdmin):
+	readonly_fields = ('cover_image_show',)
+	list_display = ('title','cover_image_show','order')
+	list_editable = ('order',)
+	filter_horizontal = ('products',)
+
+	fieldsets = (
+		('', {
+			'fields': ('title', ('cover_image','cover_image_show'),'products')
+		}),
+		)
+
+class ProjectPage(admin.ModelAdmin):
+	readonly_fields = ('cover_image_show',)
+	list_display = ('title','order','cover_image_show',)
+	list_editable = ('order',)
+	filter_horizontal = ('images',)
+	fieldsets = (
+		('', {
+			'fields': ('title', ('cover_image','cover_image_show'),'images')
+		}),
+		)
+
+class WhatPage(admin.ModelAdmin):
+	filter_horizontal = ('whats_new_products',)
+	fieldsets = (
+		('', {
+			'fields': ('title','whats_new_products',)
 		}),
 		)
 
 
 admin.site.register(Press,PressPage)
-admin.site.register(Product)
-admin.site.register(ProductCat)
-admin.site.register(Project)
+admin.site.register(Product,ProductPage)
+admin.site.register(ProductCat,ProductCatPage)
+admin.site.register(Project,ProjectPage)
 admin.site.register(About,aboutPage)
+admin.site.register(WhatsNew,WhatPage)
